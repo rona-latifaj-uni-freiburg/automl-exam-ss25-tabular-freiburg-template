@@ -1,5 +1,26 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Intro:
+
 Data ingestion and preprocessing modules:  
 - load.py       → functions for reading raw data  
 - preprocess.py → data cleaning, validation, and transformation steps  
 
 Any changes to data cleaning rules should be tracked and tested here.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Jul 7 2025
+Important methods load.py:
+
+load_fold ---> example usage is load_fold("bike_sharing_demand",1) it basically returns all files under data/bike_sharing_demand/1
+
+load_all_folds ---> example usage is load_all_folds("bike_sharing_demand") it returns all folds together
+
+load_full_train_for_specific_dataset ---> loads all training data for a specific dataset,Concatenate X_train & y_train across ALL folds into one big training set. Returns: (X_full, y_full)
+
+load_full_test_for_specific_dataset ---> returns all test data after Concatenate X_test & y_test across ALL folds.Returns: (X_full_test, y_full_test)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
