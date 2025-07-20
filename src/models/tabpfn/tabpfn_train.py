@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
 # ──────────────────────────────────────────────────────────────────────────────
 # Train TabPFNRegressor on every fold of a dataset and save:
-#   • one model file per fold  →  <output_dir>/<dataset>/fold<k>.pkl
-#   • TensorBoard logs         →  <output_dir>/runs/<timestamp>/
-#   • an ensemble              →  <output_dir>/<dataset>/ensemble.pkl
-# Returns a list of model paths and fold R² scores.
+#   • one model per fold         →  <output_dir>/<dataset>/fold<k>.pkl
+#   • an ensemble                →  <output_dir>/<dataset>/ensemble.pkl
+#   • TensorBoard logs           →  <output_dir>/runs/<timestamp>/
+# Also logs ensemble‑level metrics and system stats to TensorBoard.
 # ──────────────────────────────────────────────────────────────────────────────
 from __future__ import annotations
 
 import argparse
 import logging
 import pickle
+import time
 from datetime import datetime
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import torch
 from sklearn.metrics import r2_score
 from tabpfn import TabPFNRegressor
@@ -44,28 +46,32 @@ def _device() -> str:
 # ─── Training function ────────────────────────────────────────────────────────
 def train_folds(dataset: str, output_dir: Path, seed: int = 0):
     """
-    Parameters
-    ----------
-    dataset     Path to dataset root (contains fold parquet files).
-    output_dir  Root directory under which every dataset gets its own subfolder.
-    seed        Random seed for reproducibility.
+    dataset
+        Path to dataset root (contains fold parquet files).
+    output_dir
+        Root directory; every dataset gets its own sub‑folder here.
+    seed
+        RNG seed for reproducibility.
     """
+    start_time = time.time()
     device = _device()
     folds = get_available_folds(dataset)
     dataset_name = Path(dataset).name
 
-    # All artefacts live in: <output_dir>/<dataset_name>/
+    # All artefacts live in <output_dir>/<dataset_name>/
     dataset_outdir = output_dir / dataset_name
     dataset_outdir.mkdir(parents=True, exist_ok=True)
 
     scores, model_paths = [], []
+    X_test_parts, y_test_parts = [], []         # for later ensemble eval
 
-    # TensorBoard logs remain directly under <output_dir>/runs/...
+    # TensorBoard logs under <output_dir>/runs/<timestamp>/
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     tb_log_dir = output_dir / "runs" / timestamp
     writer = SummaryWriter(log_dir=str(tb_log_dir))
     logger.info(f"TensorBoard logs → {tb_log_dir}")
 
+    # ---------- fold loop ----------------------------------------------------
     for fold in folds:
         try:
             X_tr, X_te, y_tr, y_te = load_fold(dataset, fold)
@@ -82,7 +88,7 @@ def train_folds(dataset: str, output_dir: Path, seed: int = 0):
             logger.info(f"Fold {fold}  R² = {score:.4f}")
             writer.add_scalar("R2_score/fold", score, fold)
 
-            # save fold model inside dataset_outdir
+            # save fold model
             fold_path = dataset_outdir / f"fold{fold}.pkl"
             with fold_path.open("wb") as f:
                 pickle.dump(agent, f)
@@ -90,6 +96,8 @@ def train_folds(dataset: str, output_dir: Path, seed: int = 0):
 
             scores.append(score)
             model_paths.append(fold_path)
+            X_test_parts.append(X_te)
+            y_test_parts.append(y_te)
 
             # free GPU memory
             del agent
@@ -102,18 +110,38 @@ def train_folds(dataset: str, output_dir: Path, seed: int = 0):
                 torch.cuda.empty_cache()
 
     # ---------- summary & ensemble ------------------------------------------
-    if not scores:
-        logger.warning("No successful folds; nothing was saved.")
-    else:
+    if scores:
         mean, std = np.mean(scores), np.std(scores)
         logger.info(f"Mean R² over {len(scores)} folds: {mean:.4f} ± {std:.4f}")
         writer.add_scalar("R2_score/mean", mean, 0)
         writer.add_scalar("R2_score/std", std, 0)
 
-        # Build & save ensemble inside dataset_outdir
-        build_ensemble(dataset_outdir, pattern="fold*.pkl")
+        # Build ensemble and evaluate on concatenated test sets
+        ens_path = build_ensemble(dataset_outdir, pattern="fold*.pkl")
+        ensemble = pickle.load(open(ens_path, "rb"))
 
+        X_test_full = pd.concat(X_test_parts, ignore_index=True)
+        y_test_full = pd.concat(y_test_parts, ignore_index=True).squeeze("columns")
+        y_pred_full = ensemble.predict(X_test_full).squeeze()
+
+        r2_ens = r2_score(y_test_full, y_pred_full)
+        writer.add_scalar("R2_score/ensemble", r2_ens, 0)
+        writer.add_histogram("residuals/ensemble", y_pred_full - y_test_full.values, 0)
+        logger.info(f"Ensemble  R² = {r2_ens:.4f}")
+
+    else:
+        logger.warning("No successful folds; nothing to log for ensemble.")
+
+    # ---------- system‑level stats ------------------------------------------
+    elapsed = time.time() - start_time
+    writer.add_scalar("time_sec/total", elapsed, 0)
+    if device == "cuda":
+        gpu_mem = torch.cuda.max_memory_allocated()
+        writer.add_scalar("GPU_mem_bytes/max_allocated", gpu_mem, 0)
+
+    writer.add_text("hparams", f"seed: {seed}\ndevice: {device}", 0)
     writer.close()
+
     return model_paths, scores
 
 
