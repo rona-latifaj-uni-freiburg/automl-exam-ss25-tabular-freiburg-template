@@ -2,3 +2,9 @@
 optuna==3.6.0          # Hyper-parameter search: Bayesian + other samplers for fast tuning
 lightgbm==4.3.0        # GBDT - fast, memory-efficient, handles large tabular sets and supports GPU
 catboost==1.2.5        # GBDT with native categorical support: great when many string/cat features
+numpy
+torch
+tabpfn
+scikit-learn
+pandas
+tensorboard
