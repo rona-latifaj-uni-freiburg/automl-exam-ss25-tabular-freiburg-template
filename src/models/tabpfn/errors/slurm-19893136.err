@@ -1,0 +1,22 @@
+cpu-bind=MASK - dlcgpu20, task  0  0 [47496]: mask 0x78000000780 set
+/var/spool/slurm/job19893136/slurm_script: line 11: module: command not found
+Traceback (most recent call last):
+  File "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/src/models/tabpfn/tabpfn_predict.py", line 104, in <module>
+    main(args.dataset, args.model_path, args.output_path)
+  File "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/src/models/tabpfn/tabpfn_predict.py", line 88, in main
+    out = pd.DataFrame({"prediction": y_pred,
+  File "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/automl-tabular-env/lib/python3.10/site-packages/pandas/core/frame.py", line 778, in __init__
+    mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)
+  File "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/automl-tabular-env/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 503, in dict_to_mgr
+    return arrays_to_mgr(arrays, columns, index, dtype=dtype, typ=typ, consolidate=copy)
+  File "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/automl-tabular-env/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 119, in arrays_to_mgr
+    arrays, refs = _homogenize(arrays, index, dtype)
+  File "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/automl-tabular-env/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 629, in _homogenize
+    val = sanitize_array(val, index, dtype=dtype, copy=False)
+  File "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/automl-tabular-env/lib/python3.10/site-packages/pandas/core/construction.py", line 630, in sanitize_array
+    return sanitize_array(
+  File "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/automl-tabular-env/lib/python3.10/site-packages/pandas/core/construction.py", line 656, in sanitize_array
+    subarr = _sanitize_ndim(subarr, data, dtype, index, allow_2d=allow_2d)
+  File "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/automl-tabular-env/lib/python3.10/site-packages/pandas/core/construction.py", line 715, in _sanitize_ndim
+    raise ValueError(
+ValueError: Data must be 1-dimensional, got ndarray of shape (7820, 1) instead
