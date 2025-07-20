@@ -23,7 +23,7 @@ PY
 cd src/
 # ── run TabPFN pipeline ─────────────────────────────────────────────────
 # assumes `src/` is on PYTHONPATH
-export DATASET_DIR="/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/data/brazilian_houses"
+export DATASET_DIR="/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/data/superconductivity"
 export MODEL_DIR="/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output"
 
 python -m models.tabpfn \

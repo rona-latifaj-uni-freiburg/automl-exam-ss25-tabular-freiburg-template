@@ -23,7 +23,7 @@ from tabpfn import TabPFNRegressor
 from torch.utils.tensorboard import SummaryWriter
 
 from data import get_available_folds, load_fold
-from tabpfn_ensemble import build_ensemble
+from .tabpfn_ensemble import build_ensemble, EnsemblePFN
 
 # ─── Logging setup ────────────────────────────────────────────────────────────
 logging.basicConfig(

@@ -1,0 +1,35 @@
+cpu-bind=MASK - dlcgpu14, task  0  0 [77439]: mask 0xf0000000f000 set
+/var/spool/slurm/job19910539/slurm_script: line 11: module: command not found
+2025-07-20 03:21:05 [INFO] TensorBoard logs → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/runs/20250720_032105
+2025-07-20 03:21:05 [INFO] Fold 1: 4329 train rows  •  device=cuda
+2025-07-20 03:21:09 [INFO] Fold 1  R² = 0.9617
+2025-07-20 03:21:09 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/brazilian_houses/fold1.pkl
+2025-07-20 03:21:09 [INFO] Fold 2: 4330 train rows  •  device=cuda
+2025-07-20 03:21:12 [INFO] Fold 2  R² = 1.0000
+2025-07-20 03:21:12 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/brazilian_houses/fold2.pkl
+2025-07-20 03:21:12 [INFO] Fold 3: 4330 train rows  •  device=cuda
+2025-07-20 03:21:14 [INFO] Fold 3  R² = 1.0000
+2025-07-20 03:21:14 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/brazilian_houses/fold3.pkl
+2025-07-20 03:21:14 [INFO] Fold 4: 4330 train rows  •  device=cuda
+2025-07-20 03:21:17 [INFO] Fold 4  R² = 1.0000
+2025-07-20 03:21:17 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/brazilian_houses/fold4.pkl
+2025-07-20 03:21:17 [INFO] Fold 5: 4330 train rows  •  device=cuda
+2025-07-20 03:21:19 [INFO] Fold 5  R² = 0.9959
+2025-07-20 03:21:20 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/brazilian_houses/fold5.pkl
+2025-07-20 03:21:20 [INFO] Fold 6: 4330 train rows  •  device=cuda
+2025-07-20 03:21:22 [INFO] Fold 6  R² = 0.9638
+2025-07-20 03:21:22 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/brazilian_houses/fold6.pkl
+2025-07-20 03:21:22 [INFO] Fold 7: 4330 train rows  •  device=cuda
+2025-07-20 03:21:25 [INFO] Fold 7  R² = 1.0000
+2025-07-20 03:21:25 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/brazilian_houses/fold7.pkl
+2025-07-20 03:21:25 [INFO] Fold 8: 4330 train rows  •  device=cuda
+2025-07-20 03:21:27 [INFO] Fold 8  R² = 1.0000
+2025-07-20 03:21:27 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/brazilian_houses/fold8.pkl
+2025-07-20 03:21:27 [INFO] Fold 9: 4330 train rows  •  device=cuda
+2025-07-20 03:21:30 [INFO] Fold 9  R² = 0.9988
+2025-07-20 03:21:30 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/brazilian_houses/fold9.pkl
+2025-07-20 03:21:30 [INFO] Fold 10: 4330 train rows  •  device=cuda
+2025-07-20 03:21:32 [INFO] Fold 10  R² = 1.0000
+2025-07-20 03:21:33 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/brazilian_houses/fold10.pkl
+2025-07-20 03:21:33 [INFO] Mean R² over 10 folds: 0.9920 ± 0.0147
+2025-07-20 03:22:13 [INFO] Ensemble  R² = 0.9927

@@ -33,6 +33,3 @@ if __name__ == "__main__":
 
     # 1) Train each fold (uses TabPFN's default ensemble size)
     train_folds(args.dataset, Path(args.model_dir), seed=args.seed)
-
-    # 2) Build & save the ensemble
-    build_ensemble(Path(args.model_dir))

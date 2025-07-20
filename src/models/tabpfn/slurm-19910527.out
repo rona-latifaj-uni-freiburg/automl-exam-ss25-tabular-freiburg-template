@@ -1,0 +1,5 @@
+CUDA available: True
+GPU count: 1
+GPU name : NVIDIA GeForce RTX 2080 Ti
+[+] Predictions saved to /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/preds/ensemble_preds.csv
+[+] R² = 0.962197  (saved to /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/preds/ensemble_preds.r2.txt)

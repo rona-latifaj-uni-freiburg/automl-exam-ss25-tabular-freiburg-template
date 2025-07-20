@@ -1,0 +1,2 @@
+cpu-bind=MASK - dlcgpu14, task  0  0 [76940]: mask 0xf0000000f0 set
+/var/spool/slurm/job19910527/slurm_script: line 28: module: command not found

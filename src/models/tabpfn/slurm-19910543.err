@@ -1,0 +1,34 @@
+cpu-bind=MASK - dlcgpu14, task  0  0 [79256]: mask 0xf0000000f000 set
+/var/spool/slurm/job19910543/slurm_script: line 11: module: command not found
+2025-07-20 03:24:12 [INFO] TensorBoard logs → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/runs/20250720_032412
+2025-07-20 03:24:12 [INFO] Fold 1: 8611 train rows  •  device=cuda
+2025-07-20 03:24:47 [INFO] Fold 1  R² = 0.9120
+2025-07-20 03:24:47 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/superconductivity/fold1.pkl
+2025-07-20 03:24:47 [INFO] Fold 2: 8611 train rows  •  device=cuda
+2025-07-20 03:25:27 [INFO] Fold 2  R² = 0.9083
+2025-07-20 03:25:27 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/superconductivity/fold2.pkl
+2025-07-20 03:25:27 [INFO] Fold 3: 8611 train rows  •  device=cuda
+2025-07-20 03:26:11 [INFO] Fold 3  R² = 0.9231
+2025-07-20 03:26:11 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/superconductivity/fold3.pkl
+2025-07-20 03:26:11 [INFO] Fold 4: 8611 train rows  •  device=cuda
+2025-07-20 03:26:57 [INFO] Fold 4  R² = 0.9152
+2025-07-20 03:26:57 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/superconductivity/fold4.pkl
+2025-07-20 03:26:57 [INFO] Fold 5: 8611 train rows  •  device=cuda
+2025-07-20 03:27:44 [INFO] Fold 5  R² = 0.8966
+2025-07-20 03:27:44 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/superconductivity/fold5.pkl
+2025-07-20 03:27:44 [INFO] Fold 6: 8611 train rows  •  device=cuda
+2025-07-20 03:28:31 [INFO] Fold 6  R² = 0.9123
+2025-07-20 03:28:31 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/superconductivity/fold6.pkl
+2025-07-20 03:28:31 [INFO] Fold 7: 8611 train rows  •  device=cuda
+2025-07-20 03:29:19 [INFO] Fold 7  R² = 0.9183
+2025-07-20 03:29:19 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/superconductivity/fold7.pkl
+2025-07-20 03:29:19 [INFO] Fold 8: 8611 train rows  •  device=cuda
+2025-07-20 03:30:06 [INFO] Fold 8  R² = 0.9186
+2025-07-20 03:30:08 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/superconductivity/fold8.pkl
+2025-07-20 03:30:11 [INFO] Fold 9: 8612 train rows  •  device=cuda
+2025-07-20 03:30:56 [INFO] Fold 9  R² = 0.9180
+2025-07-20 03:30:56 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/superconductivity/fold9.pkl
+2025-07-20 03:30:57 [INFO] Fold 10: 8612 train rows  •  device=cuda
+2025-07-20 03:31:44 [INFO] Fold 10  R² = 0.9278
+2025-07-20 03:31:44 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/superconductivity/fold10.pkl
+2025-07-20 03:31:44 [INFO] Mean R² over 10 folds: 0.9150 ± 0.0081

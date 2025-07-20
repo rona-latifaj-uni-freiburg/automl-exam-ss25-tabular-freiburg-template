@@ -1,0 +1,45 @@
+cpu-bind=MASK - dlcgpu14, task  0  0 [76016]: mask 0xf0000000f0 set
+/var/spool/slurm/job19910499/slurm_script: line 11: module: command not found
+2025-07-20 03:01:02 [INFO] TensorBoard logs → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/runs/20250720_030102
+2025-07-20 03:01:02 [INFO] Fold 1: 7038 train rows  •  device=cuda
+2025-07-20 03:01:08 [INFO] Fold 1  R² = 0.9256
+2025-07-20 03:01:08 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/fold1.pkl
+2025-07-20 03:01:08 [INFO] Fold 2: 7038 train rows  •  device=cuda
+2025-07-20 03:01:13 [INFO] Fold 2  R² = 0.9446
+2025-07-20 03:01:15 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/fold2.pkl
+2025-07-20 03:01:15 [INFO] Fold 3: 7038 train rows  •  device=cuda
+2025-07-20 03:01:20 [INFO] Fold 3  R² = 0.9215
+2025-07-20 03:01:20 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/fold3.pkl
+2025-07-20 03:01:20 [INFO] Fold 4: 7038 train rows  •  device=cuda
+2025-07-20 03:01:25 [INFO] Fold 4  R² = 0.9588
+2025-07-20 03:01:25 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/fold4.pkl
+2025-07-20 03:01:25 [INFO] Fold 5: 7038 train rows  •  device=cuda
+2025-07-20 03:01:30 [INFO] Fold 5  R² = 0.9368
+2025-07-20 03:01:30 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/fold5.pkl
+2025-07-20 03:01:30 [INFO] Fold 6: 7038 train rows  •  device=cuda
+2025-07-20 03:01:34 [INFO] Fold 6  R² = 0.9530
+2025-07-20 03:01:35 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/fold6.pkl
+2025-07-20 03:01:35 [INFO] Fold 7: 7038 train rows  •  device=cuda
+2025-07-20 03:01:39 [INFO] Fold 7  R² = 0.9510
+2025-07-20 03:01:39 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/fold7.pkl
+2025-07-20 03:01:40 [INFO] Fold 8: 7038 train rows  •  device=cuda
+2025-07-20 03:01:44 [INFO] Fold 8  R² = 0.9381
+2025-07-20 03:01:44 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/fold8.pkl
+2025-07-20 03:01:44 [INFO] Fold 9: 7038 train rows  •  device=cuda
+2025-07-20 03:01:49 [INFO] Fold 9  R² = 0.9502
+2025-07-20 03:01:49 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/fold9.pkl
+2025-07-20 03:01:49 [INFO] Fold 10: 7038 train rows  •  device=cuda
+2025-07-20 03:01:54 [INFO] Fold 10  R² = 0.9457
+2025-07-20 03:01:54 [INFO] Saved fold model → /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/fold10.pkl
+2025-07-20 03:01:54 [INFO] Mean R² over 10 folds: 0.9425 ± 0.0114
+2025-07-20 03:03:14 [INFO] Ensemble  R² = 0.9622
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/src/models/tabpfn/__main__.py", line 38, in <module>
+    build_ensemble(Path(args.model_dir))
+  File "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/src/models/tabpfn/tabpfn_ensemble.py", line 53, in build_ensemble
+    raise RuntimeError(f"No fold models matching '{pattern}' found in {model_dir}")
+RuntimeError: No fold models matching 'fold*.pkl' found in /work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output
