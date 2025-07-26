@@ -1,3 +1,4 @@
+import random
 import pandas as pd
 from pathlib import Path
 from typing import Tuple,List,Dict
@@ -11,6 +12,28 @@ def get_available_datasets(data_root: Path = DATA_ROOT) -> List[str]:
     """
     return sorted([p.name for p in data_root.iterdir() if p.is_dir()])
 
+
+def simulate_exam_dataset(dataset: str, data_root: Path = DATA_ROOT) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Randomly selects one fold and returns only the X_train and y_train.
+    Also saves the chosen fold for later use in `get_test_data`.
+    """
+    global _simulated_fold
+    available_folds = get_available_folds(dataset, data_root)
+    _simulated_fold = random.choice(available_folds)
+    
+    X_train, _, y_train, _ = load_fold(dataset, _simulated_fold, data_root)
+    return X_train, y_train
+
+def get_test_data(dataset: str, data_root: Path = DATA_ROOT) -> pd.DataFrame:
+    """
+    Returns only the X_test data for the previously selected fold using `simulate_exam_dataset`.
+    """
+    if _simulated_fold is None:
+        raise RuntimeError("No fold has been selected yet. Call simulate_exam_dataset first.")
+    
+    _, X_test, _, _ = load_fold(dataset, _simulated_fold, data_root)
+    return X_test
 
 def get_available_folds(dataset: str, data_root: Path = DATA_ROOT) -> List[int]:
     """
