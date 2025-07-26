@@ -43,6 +43,6 @@ PY
 cd src/models/bootstrap_tabpfn || { echo "[ERROR] Could not cd to src/models/bootstrap_tabpfn" >&2; exit 1; }
 
 python predict.py \
-  --dataset "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/data/superconductivity" \
+  --dataset "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/data/bike_sharing_demand" \
   --model-dir "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output" \
   --output "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/y_pred.csv"

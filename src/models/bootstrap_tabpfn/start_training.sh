@@ -23,14 +23,13 @@ PY
 cd src/
 # ── run TabPFN pipeline ─────────────────────────────────────────────────
 # assumes `src/` is on PYTHONPATH
-export DATASET_DIR="/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/data/superconductivity"
+export DATASET_DIR="/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/data/bike_sharing_demand"
 export MODEL_DIR="/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output"
 
 python -m models.bootstrap_tabpfn \
-    --dataset "${DATASET_DIR}" \
-    --out-dir "${MODEL_DIR}" \
-    --n-bootstrap 10 \
-    --sample-frac 0.8 \
-    --seed 0
+  --dataset "${DATASET_DIR}" \
+  --out-dir "${MODEL_DIR}" \
+  --seed 0 \
+  --optuna
 
 # ── after the job, your per-fold models and ensemble.pkl will be in $MODEL_DIR
