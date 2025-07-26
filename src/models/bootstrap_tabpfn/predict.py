@@ -19,11 +19,8 @@ def run_prediction(
     model_dir = Path(model_dir)
     model_path = model_dir / dataset_path.name / "ensemble.pkl"
 
-    # Simulate one fold to set the global _simulated_fold
-    simulate_exam_dataset(str(dataset_path))
-
     # Get the X_test corresponding to the fold
-    X_test = get_test_data(str(dataset_path))
+    X_test = get_test_data(str(dataset_path), fold=8)
 
     # Load the trained ensemble model
     with open(model_path, "rb") as f:

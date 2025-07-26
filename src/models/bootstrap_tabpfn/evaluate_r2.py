@@ -35,9 +35,4 @@ def main(pred_path: str, true_path: str):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Evaluate R² score between predictions and ground truth")
-    parser.add_argument("--pred", required=True, help="Path to y_pred.csv")
-    parser.add_argument("--true", required=True, help="Path to y_test.parquet or y_test.csv")
-
-    args = parser.parse_args()
-    main(args.pred, args.true)
+    main("/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/y_pred.csv", "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/data/superconductivity/8/y_test.parquet")

@@ -34,15 +34,14 @@ def simulate_exam_dataset(dataset: str, data_root: Path = DATA_ROOT) -> Tuple[pd
     X_train, _, y_train, _ = load_fold(dataset, _simulated_fold, data_root)
     return X_train, y_train
 
-def get_test_data(dataset: str, data_root: Path = DATA_ROOT) -> pd.DataFrame:
+def get_test_data(dataset: str, data_root: Path = DATA_ROOT, fold: int = None) -> pd.DataFrame:
     """
     Returns only the X_test data for the previously selected fold using `simulate_exam_dataset`.
     """
-    if _simulated_fold is None:
-        raise RuntimeError("No fold has been selected yet. Call simulate_exam_dataset first.")
-    else:
-        logger.info(f"Using fold {_simulated_fold} for test data.")
-    _, X_test, _, _ = load_fold(dataset, _simulated_fold, data_root)
+    if fold is None:
+        fold = _simulated_fold
+    logger.info(f"Using fold {fold} for test data.")
+    _, X_test, _, _ = load_fold(dataset, fold, data_root)
     return X_test
 
 def get_available_folds(dataset: str, data_root: Path = DATA_ROOT) -> List[int]:
