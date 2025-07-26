@@ -2,8 +2,17 @@ import random
 import pandas as pd
 from pathlib import Path
 from typing import Tuple,List,Dict
+import logging
 
 DATA_ROOT = Path(__file__).resolve().parents[2]/"data"
+
+# ─── Logging setup ────────────────────────────────────────────────────────────
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+logger = logging.getLogger(__name__)
 
 
 def get_available_datasets(data_root: Path = DATA_ROOT) -> List[str]:
@@ -13,15 +22,15 @@ def get_available_datasets(data_root: Path = DATA_ROOT) -> List[str]:
     return sorted([p.name for p in data_root.iterdir() if p.is_dir()])
 
 
-def simulate_exam_dataset(dataset: str, data_root: Path = DATA_ROOT) -> Tuple[pd.DataFrame, pd.DataFrame]:
+def simulate_exam_dataset(dataset: str, data_root: Path = DATA_ROOT) -> Tuple[pd.DataFrame, pd.DataFrame, int]:
     """
-    Randomly selects one fold and returns only the X_train and y_train.
+    Randomly selects one fold and returns X_train, y_train, and the fold number.
     Also saves the chosen fold for later use in `get_test_data`.
     """
     global _simulated_fold
     available_folds = get_available_folds(dataset, data_root)
     _simulated_fold = random.choice(available_folds)
-    
+    logger.info(f"Simulated fold: {_simulated_fold} for dataset: {dataset}")
     X_train, _, y_train, _ = load_fold(dataset, _simulated_fold, data_root)
     return X_train, y_train
 
@@ -31,7 +40,8 @@ def get_test_data(dataset: str, data_root: Path = DATA_ROOT) -> pd.DataFrame:
     """
     if _simulated_fold is None:
         raise RuntimeError("No fold has been selected yet. Call simulate_exam_dataset first.")
-    
+    else:
+        logger.info(f"Using fold {_simulated_fold} for test data.")
     _, X_test, _, _ = load_fold(dataset, _simulated_fold, data_root)
     return X_test
 
