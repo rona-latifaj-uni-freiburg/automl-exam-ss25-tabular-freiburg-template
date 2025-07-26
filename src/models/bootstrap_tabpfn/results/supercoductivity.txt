@@ -1,0 +1,2 @@
+(automl-tabular-env) alidemaa@kis3bat2:/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template$ python src/models/bootstrap_tabpfn/evaluate_r2.py 
+✅ R² Score: 0.91585
