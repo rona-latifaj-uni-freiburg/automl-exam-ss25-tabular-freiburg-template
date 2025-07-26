@@ -44,5 +44,6 @@ cd src/models/bootstrap_tabpfn || { echo "[ERROR] Could not cd to src/models/boo
 
 python predict.py \
   --dataset "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/data/bike_sharing_demand" \
-  --model-dir "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output" \
+  --model-file "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output/bike_sharing_demand/ensemble.pkl" \
+  --fold 5 \
   --output "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/y_pred.csv"

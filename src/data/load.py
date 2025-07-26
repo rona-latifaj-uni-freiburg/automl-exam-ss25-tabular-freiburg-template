@@ -21,28 +21,48 @@ def get_available_datasets(data_root: Path = DATA_ROOT) -> List[str]:
     """
     return sorted([p.name for p in data_root.iterdir() if p.is_dir()])
 
-
-def simulate_exam_dataset(dataset: str, data_root: Path = DATA_ROOT) -> Tuple[pd.DataFrame, pd.DataFrame, int]:
+def simulate_exam_dataset(
+    dataset: str,
+    data_root: Path = DATA_ROOT,
+    fold: int | None = None
+) -> Tuple[pd.DataFrame, pd.DataFrame, int]:
     """
-    Randomly selects one fold and returns X_train, y_train, and the fold number.
-    Also saves the chosen fold for later use in `get_test_data`.
+    Selects one fold (either the one you pass, or random if you pass None)
+    and returns (X_train, y_train, fold_number). Also saves the chosen fold
+    globally for `get_test_data()` fallback.
     """
     global _simulated_fold
-    available_folds = get_available_folds(dataset, data_root)
-    _simulated_fold = random.choice(available_folds)
-    logger.info(f"Simulated fold: {_simulated_fold} for dataset: {dataset}")
-    X_train, _, y_train, _ = load_fold(dataset, _simulated_fold, data_root)
-    return X_train, y_train
+    folds = get_available_folds(dataset, data_root)
 
-def get_test_data(dataset: str, data_root: Path = DATA_ROOT, fold: int = None) -> pd.DataFrame:
+    if fold is not None:
+        if fold not in folds:
+            raise ValueError(f"Fold {fold} not available for dataset {dataset}.")
+        _simulated_fold = fold
+    else:
+        _simulated_fold = random.choice(folds)
+
+    logger.info(f"Selected fold: {_simulated_fold} for dataset: {dataset}")
+    X_tr, _, y_tr, _ = load_fold(dataset, _simulated_fold, data_root)
+    return X_tr, y_tr, _simulated_fold
+
+
+def get_test_data(
+    dataset: str,
+    data_root: Path = DATA_ROOT,
+    fold: int | None = None
+) -> pd.DataFrame:
     """
-    Returns only the X_test data for the previously selected fold using `simulate_exam_dataset`.
+    Returns X_test for the specified fold, or for the last fold chosen
+    by `simulate_exam_dataset()` if you omit `fold`.
     """
-    if fold is None:
-        fold = _simulated_fold
-    logger.info(f"Using fold {fold} for test data.")
-    _, X_test, _, _ = load_fold(dataset, fold, data_root)
-    return X_test
+    global _simulated_fold
+    chosen = fold if fold is not None else _simulated_fold
+    if chosen is None:
+        raise RuntimeError("No fold set. Call simulate_exam_dataset(..., fold=...) first.")
+    logger.info(f"Loading X_test for fold {chosen} of dataset: {dataset}")
+    _, X_te, _, _ = load_fold(dataset, chosen, data_root)
+    return X_te
+
 
 def get_available_folds(dataset: str, data_root: Path = DATA_ROOT) -> List[int]:
     """

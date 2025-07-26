@@ -3,7 +3,7 @@
 #SBATCH --partition=dllabdlc_gpu-rtx2080
 #SBATCH --gres=gpu:1
 #SBATCH --mem=40G
-#SBATCH --time=00:20:00
+#SBATCH --time=24:00:00
 #SBATCH --output=slurm-%j.out
 #SBATCH --error=slurm-%j.err
 
@@ -27,9 +27,11 @@ export DATASET_DIR="/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabu
 export MODEL_DIR="/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/models/tabpfn-output"
 
 python -m models.bootstrap_tabpfn \
-  --dataset "${DATASET_DIR}" \
-  --out-dir "${MODEL_DIR}" \
+  --dataset "$DATASET_DIR" \
+  --out-dir "$MODEL_DIR" \
   --seed 0 \
-  --optuna
+  --fold 5 \
+  --optuna \
+  --n-trials 50
 
 # ── after the job, your per-fold models and ensemble.pkl will be in $MODEL_DIR
