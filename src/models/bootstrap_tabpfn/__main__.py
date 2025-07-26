@@ -4,7 +4,7 @@
 import argparse
 from pathlib import Path
 
-from bootstrap_tabpfn_train import train_bootstrap
+from .bootstrap_tabpfn_train import train_bootstrap
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

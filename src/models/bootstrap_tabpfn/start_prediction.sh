@@ -40,7 +40,7 @@ print("GPU name :", torch.cuda.get_device_name(0) if torch.cuda.is_available() e
 PY
 
 # ── run TabPFN pipeline ------------------------------------------------------
-cd src/models/tabpfn
+cd src/models/bootstrap_tabpfn || { echo "[ERROR] Could not cd to src/models/bootstrap_tabpfn" >&2; exit 1; }
 
 python predict.py \
   --dataset "/work/dlclarge2/alidemaa-dl_lab/automl/automl-exam-ss25-tabular-freiburg-template/data/superconductivity" \

@@ -14,7 +14,7 @@ from tabpfn import TabPFNRegressor
 from torch.utils.tensorboard import SummaryWriter
 
 from data import simulate_exam_dataset, get_test_data
-from bootstrap_ensemble import EnsemblePFN
+from .bootstrap_ensemble import EnsemblePFN
 
 # ─── Logging setup ────────────────────────────────────────────────────────────
 logging.basicConfig(
