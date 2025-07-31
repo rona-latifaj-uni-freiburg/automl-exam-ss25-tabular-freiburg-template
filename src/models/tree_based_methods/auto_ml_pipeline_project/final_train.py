@@ -17,7 +17,7 @@ from .auto_ml_pipeline.feature_engineering import engineer_features
 from .auto_ml_pipeline.model_selection import select_and_train, EnsembleModel
 from .auto_ml_pipeline.hyperparameter_tuning import tune_lgbm, tune_catboost
 from .auto_ml_pipeline.utils import setup_logging, save_model, report_results
-from data.load import load_only_train_for_dataset, DATA_ROOT
+from src.data.load import load_only_train_for_dataset, DATA_ROOT
 from pathlib import Path
 
 

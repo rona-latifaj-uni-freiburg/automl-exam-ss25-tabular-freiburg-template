@@ -17,7 +17,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 import optuna
 from optuna.exceptions import TrialPruned
-from data import simulate_exam_dataset, get_test_data
+from src.data import simulate_exam_dataset, get_test_data
 from .bootstrap_ensemble import EnsemblePFN
 
 # ─── Logging setup ────────────────────────────────────────────────────────────

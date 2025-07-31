@@ -5,7 +5,7 @@ import numpy as np
 from typing import Tuple
 from .tabnet_train import main as _train_main, train_fold_with_optuna
 from .tabnet_ensembling import main as _ensemble_main
-from data.load import load_only_train_for_dataset
+from src.data.load import load_only_train_for_dataset
 from pathlib import Path
 from sklearn.model_selection import KFold
 

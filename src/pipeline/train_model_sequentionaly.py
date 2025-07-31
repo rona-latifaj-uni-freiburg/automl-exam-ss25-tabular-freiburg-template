@@ -7,9 +7,9 @@ import numpy as np
 import torch
 import joblib
 
-from models.bootstrap_tabpfn.bootstrap_tabpfn_train import train_bootstrap
-from models.tree_based_methods.auto_ml_pipeline_project.final_train import tree_based_methods_model
-from models.tabnet.tabnet_pipeline import tabnet_model
+from ..models.bootstrap_tabpfn.bootstrap_tabpfn_train import train_bootstrap
+from ..models.tree_based_methods.auto_ml_pipeline_project.final_train import tree_based_methods_model
+from ..models.tabnet.tabnet_pipeline import tabnet_model
 
 
 def _device() -> str:
@@ -47,7 +47,16 @@ def load_model(path: Path):
 
 
 def train_and_ensemble(dataset: Path, output_dir: Path, seed: int = 1):
-    # 1) Tree-based model
+    print("[INFO] Training TabNet model...")
+    tabnet_dir = output_dir / "tabnet"
+    tabnet_dir.mkdir(parents=True, exist_ok=True)
+    tabnet_path, tabnet_r2 = tabnet_model(
+        str(dataset), str(tabnet_dir),
+        n_splits=10, n_trials=20, seed=seed
+    )
+    print(f"TabNet →      {tabnet_path} (mean R²={tabnet_r2:.4f})")
+       # 1) Tree-based model
+    
     print("[INFO] Training tree-based model...")
     tree_path, tree_r2 = tree_based_methods_model(
         str(dataset), str(output_dir)

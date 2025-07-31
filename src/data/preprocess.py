@@ -3,7 +3,7 @@
 from pathlib import Path
 import numpy as np
 import pandas as pd
-from data.load import (
+from src.data.load import (
     get_available_datasets,
     get_available_folds,
     load_fold,
