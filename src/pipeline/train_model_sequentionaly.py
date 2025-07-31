@@ -60,7 +60,7 @@ def train_and_ensemble(dataset: Path, output_dir: Path, seed: int = 1):
     tabnet_dir.mkdir(parents=True, exist_ok=True)
     tabnet_path, tabnet_r2 = tabnet_model(
         str(dataset), str(tabnet_dir),
-        n_splits=10, n_trials=20, seed=seed
+        n_splits=10, n_trials=3, seed=seed
     )
     print(f"TabNet →      {tabnet_path} (mean R²={tabnet_r2:.4f})")
     

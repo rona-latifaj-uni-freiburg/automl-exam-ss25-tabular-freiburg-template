@@ -80,7 +80,7 @@ def train_fold_with_optuna(X_tr, y_tr, X_val, y_val, fold_idx, output_dir, n_tri
 
     # Optimize hyperparameters using scaled targets
     study = optuna.create_study(direction='maximize')
-    study.optimize(lambda trial: objective(trial, X_train_np, y_train_scaled, X_val_np, y_val_scaled), n_trials=n_trials)
+    study.optimize(lambda trial: objective(trial, X_train_np, y_train_scaled, X_val_np, y_val_scaled), n_trials=n_trials, n_jobs=1, catch=(Exception,))
 
     print(f"Best params for fold {fold_idx}: {study.best_params}")
     print(f"Best R² for fold {fold_idx}: {study.best_value:.4f}")
