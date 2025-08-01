@@ -3,7 +3,7 @@
 #SBATCH --partition=dllabdlc_gpu-rtx2080
 #SBATCH --gres=gpu:1
 #SBATCH --mem=40G
-#SBATCH --time=24:00:00
+#SBATCH --time=00:30:00
 #SBATCH --output=slurm-%j.out
 #SBATCH --error=slurm-%j.err
 
