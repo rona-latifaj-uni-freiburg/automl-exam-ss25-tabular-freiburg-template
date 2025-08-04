@@ -174,8 +174,28 @@ def main():
 
     logger.info(f"Loading ensemble from {args.model_file}")
     ensemble = load_model(Path(args.model_file))
-    # reconstruct model_names if missing
-    ensemble.model_names = WeightedEnsemble(ensemble.models, []).model_names
+
+    # ensure we have model_names and a consistent interface for single models
+    if not hasattr(ensemble, "models"):
+        # wrap single model so the rest of the code can treat it uniformly
+        class SingleWrapper:
+            def __init__(self, model):
+                self.models = [model]
+                if isinstance(model, CatBoostRegressor):
+                    self.model_names = ["CatBoost"]
+                elif isinstance(model, (TabNetRegressor,)):
+                    self.model_names = ["TabNet"]
+                else:
+                    self.model_names = ["TabPFN"]
+                self.weights = np.array([1.0])
+
+            def predict(self, X):
+                return self.models[0].predict(X)
+
+        ensemble = SingleWrapper(ensemble)
+    elif not hasattr(ensemble, "model_names"):
+        # legacy ensemble missing names: reconstruct
+        ensemble.model_names = WeightedEnsemble(ensemble.models, []).model_names
 
     logger.info("Computing predictions...")
     y_pred = ensemble.predict(X_test)

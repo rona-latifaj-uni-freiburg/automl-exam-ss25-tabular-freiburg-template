@@ -114,6 +114,54 @@ def train_and_ensemble(dataset: Path, output_dir: Path, seed: int = 1):
     return final_path
 
 
+def train_best_model(dataset: Path, output_dir: Path, seed: int = 1):
+    logger.info("Using device: %s", _device())
+
+    # Train all three models (same as before)
+    logger.info("Training TabPFN model...")
+    tabpfn_path, tabpfn_r2 = train_bootstrap(
+        str(dataset), output_dir=output_dir
+    )
+    logger.info("TabPFN →      %s (R²=%.4f)", tabpfn_path, tabpfn_r2)
+
+    logger.info("Training tree-based model...")
+    tree_path, tree_r2 = tree_based_methods_model(
+        str(dataset), str(output_dir)
+    )
+    logger.info("Tree-based → %s (R²=%.4f)", tree_path, tree_r2)
+
+    logger.info("Training TabNet model...")
+    tabnet_dir = output_dir / "tabnet"
+    tabnet_dir.mkdir(parents=True, exist_ok=True)
+    tabnet_path, tabnet_r2 = tabnet_model(
+        str(dataset), str(tabnet_dir)
+    )
+    logger.info("TabNet →      %s (mean R²=%.4f)", tabnet_path, tabnet_r2)
+
+    # Identify best model by R²
+    r2s = [tabpfn_r2, tree_r2, tabnet_r2]
+    paths = [tabpfn_path, tree_path, tabnet_path]
+    names = ["TabPFN", "Tree-based", "TabNet"]
+    best_idx = int(np.argmax(r2s))
+    best_name = names[best_idx]
+    best_path = paths[best_idx]
+    best_r2 = r2s[best_idx]
+
+    logger.info("Best model is %s with R²=%.4f; saving as final model.", best_name, best_r2)
+
+    # Load and re-save the single best model as final_model.pkl (keeping same interface)
+    best_model = load_model(Path(best_path))
+    # wrap in existing WeightedEnsemble so interface (weights, model_names reconstruction, feature engineering) stays consistent
+    ensemble_obj = WeightedEnsemble([best_model], [1.0])
+    final_path = output_dir / "final_model.pkl"
+    with open(final_path, "wb") as f:
+        pickle.dump(ensemble_obj, f)
+
+    logger.info("Saved best single model to %s", final_path)
+
+    return final_path
+
+
 if __name__ == "__main__":
     # configure logging
     logging.basicConfig(
@@ -125,7 +173,7 @@ if __name__ == "__main__":
     logger = logging.getLogger(__name__)
 
     parser = argparse.ArgumentParser(
-        description="Train multiple models and build weighted ensemble"
+        description="Train three models, pick the best by R², and save it as the final model"
     )
     parser.add_argument(
         "-d", "--dataset", required=True,
@@ -146,7 +194,7 @@ if __name__ == "__main__":
     out_dir.mkdir(parents=True, exist_ok=True)
 
     try:
-        train_and_ensemble(dataset, out_dir, seed=args.seed)
+        train_best_model(dataset, out_dir, seed=args.seed)
     except Exception as e:
         logger.exception("Training pipeline failed:")
         sys.exit(1)
